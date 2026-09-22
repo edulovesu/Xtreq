@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import "./ChangePasswordForm.css";
 
@@ -28,10 +28,27 @@ function PasswordField({ id, label, placeholder, value, onChange }) {
   );
 }
 
-export default function ChangePasswordForm({ onUpdate, hideHeader = false }) {
+export default function ChangePasswordForm({
+  onUpdate,
+  hideHeader = false,
+  saving = false,
+  error = null,
+  saved = false,
+}) {
   const [current, setCurrent] = useState("");
   const [next, setNext] = useState("");
   const [confirm, setConfirm] = useState("");
+
+  // Clear the fields once a change actually succeeds — but not on error,
+  // so the admin doesn't have to retype everything after a typo.
+  useEffect(() => {
+    if (saved) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCurrent("");
+      setNext("");
+      setConfirm("");
+    }
+  }, [saved]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -75,10 +92,17 @@ export default function ChangePasswordForm({ onUpdate, hideHeader = false }) {
         />
       </div>
 
+      {error && <p style={{ color: "#c0392b", margin: "4px 0 0" }}>{error}</p>}
+      {saved && !error && <p style={{ color: "#1e8449", margin: "4px 0 0" }}>Password updated.</p>}
+
       <div className="change-password__footer">
-        <span className="change-password__hint">Enter a strong password</span>
-        <button type="submit" className="change-password__submit-btn">
-          Update password
+        <span className="change-password__hint">
+          {/* Server enforces 8–128 chars (see AdminChangePasswordRequest); no
+              further complexity rule is documented, so nothing stronger is claimed here. */}
+          Minimum 8 characters
+        </span>
+        <button type="submit" className="change-password__submit-btn" disabled={saving}>
+          {saving ? "Updating…" : "Update password"}
         </button>
       </div>
     </form>

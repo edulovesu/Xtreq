@@ -1,15 +1,23 @@
 import { ArrowRight } from "lucide-react";
+import { useAdminActivity } from "../../hooks/useAdminProfile";
 import "./RecentActivity.css";
 
-const DEFAULT_ACTIVITY = [
-  { id: 1, title: "Remittance initiated", detail: "₦104,000 remitted to OAU", time: "7:40 AM", tone: "success" },
-  { id: 2, title: "Bus registered", detail: "OAU-067-IFE • Oluwaseun Ike assigned", time: "7:40 AM", tone: "success" },
-  { id: 3, title: "Route activated", detail: "Halls → Road 7", time: "7:40 AM", tone: "success" },
-  { id: 4, title: "CSV export downloaded", detail: "Revenue report • May 2-24, 2026", time: "Yesterday", tone: "success" },
-  { id: 5, title: "Bus deactivated", detail: "OAU-013-IFE • removed from service", time: "June 10", tone: "danger" },
-];
+function timeLabel(isoString) {
+  const date = new Date(isoString);
+  const now = new Date();
+  const isToday = date.toDateString() === now.toDateString();
+  const yesterday = new Date(now);
+  yesterday.setDate(now.getDate() - 1);
+  const isYesterday = date.toDateString() === yesterday.toDateString();
 
-export default function RecentActivity({ activity = DEFAULT_ACTIVITY }) {
+  if (isToday) return date.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  if (isYesterday) return "Yesterday";
+  return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+export default function RecentActivity() {
+  const { items, loading, error } = useAdminActivity(5);
+
   return (
     <div className="recent-activity">
       <div className="recent-activity__header">
@@ -22,23 +30,30 @@ export default function RecentActivity({ activity = DEFAULT_ACTIVITY }) {
         </a>
       </div>
 
-      <ul className="recent-activity__list">
-        {activity.map((item) => (
-          <li className="recent-activity__item" key={item.id}>
-            <span
-              className={
-                "recent-activity__dot recent-activity__dot--" + item.tone
-              }
-              aria-hidden="true"
-            />
-            <div className="recent-activity__content">
-              <div className="recent-activity__item-title">{item.title}</div>
-              <div className="recent-activity__item-detail">{item.detail}</div>
-            </div>
-            <span className="recent-activity__time">{item.time}</span>
-          </li>
-        ))}
-      </ul>
+      {error && <p style={{ color: "#c0392b" }}>{error.message}</p>}
+
+      {loading ? (
+        <p style={{ padding: "16px 0" }}>Loading…</p>
+      ) : items.length === 0 ? (
+        // This log only covers rider dispute actions, trip refunds, and
+        // remittance lifecycle events (see AdminActivityResponse) — an
+        // empty list here just means none of those happened yet, not
+        // that nothing has been done.
+        <p style={{ padding: "16px 0" }}>No logged activity yet.</p>
+      ) : (
+        <ul className="recent-activity__list">
+          {items.map((item) => (
+            <li className="recent-activity__item" key={item.id}>
+              <span className="recent-activity__dot recent-activity__dot--success" aria-hidden="true" />
+              <div className="recent-activity__content">
+                <div className="recent-activity__item-title">{item.description}</div>
+                <div className="recent-activity__item-detail">{item.action}</div>
+              </div>
+              <span className="recent-activity__time">{timeLabel(item.created_at)}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
