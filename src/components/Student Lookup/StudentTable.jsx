@@ -27,6 +27,7 @@ export default function StudentTable({
 }) {
   return (
     <div className="student-table-card">
+      <div className="student-table__wrap">
       <table className="student-table">
         <thead>
           <tr>
@@ -49,6 +50,7 @@ export default function StudentTable({
           ))}
         </tbody>
       </table>
+      </div>
 
       <div className="student-table__footer">
         <span>Page {page} of {pageCount}</span>
