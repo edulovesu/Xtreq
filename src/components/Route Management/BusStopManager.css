@@ -1,0 +1,30 @@
+.bus-stop-manager {
+  margin-top: 24px;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+.bus-stop-manager__header { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; margin-bottom:16px; }
+.bus-stop-manager__header h2 { margin:0; color:var(--navy-900); font-size:18px; }
+.bus-stop-manager__header p { margin:5px 0 0; color:var(--blue-text-muted); font-size:13px; }
+.bus-stop-manager__add { display:inline-flex; align-items:center; gap:7px; border:0; border-radius:8px; padding:9px 12px; background:var(--navy-900); color:#fff; font-weight:700; }
+.bus-stop-manager__empty { padding:24px; text-align:center; color:var(--blue-text-muted); border:1px dashed var(--border-subtle); border-radius:10px; }
+.bus-stop-manager__list { display:grid; gap:8px; }
+.bus-stop-manager__row { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px; border:1px solid var(--border-subtle); border-radius:9px; }
+.bus-stop-manager__row strong, .bus-stop-manager__row span { display:block; }
+.bus-stop-manager__row strong { color:var(--navy-900); }
+.bus-stop-manager__row span { margin-top:3px; color:var(--blue-text-muted); font-size:12px; }
+.bus-stop-manager__actions { display:flex; gap:6px; }
+.bus-stop-manager__actions button, .bus-stop-manager__modal-header button { border:1px solid var(--border-subtle); background:#fff; border-radius:7px; padding:7px; color:var(--blue-text); }
+.bus-stop-manager__error { color:#a52828; font-size:13px; }
+.bus-stop-manager__modal-backdrop { position:fixed; inset:0; z-index:50; display:grid; place-items:center; padding:20px; background:rgba(10,21,80,.35); }
+.bus-stop-manager__modal { width:min(100%, 440px); padding:22px; background:#fff; border-radius:14px; box-shadow:0 24px 70px rgba(0,0,0,.18); }
+.bus-stop-manager__modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+.bus-stop-manager__modal-header h3 { margin:0; color:var(--navy-900); }
+.bus-stop-manager__modal label { display:block; margin-top:13px; color:var(--navy-900); font-size:13px; font-weight:600; }
+.bus-stop-manager__modal input { width:100%; margin-top:6px; min-height:42px; padding:9px 11px; border:1px solid var(--border-subtle); border-radius:8px; font:inherit; }
+.bus-stop-manager__modal-footer { display:flex; justify-content:flex-end; gap:8px; margin-top:20px; }
+.bus-stop-manager__modal-footer button { border:1px solid var(--border-subtle); border-radius:8px; padding:9px 13px; background:#fff; }
+.bus-stop-manager__modal-footer button[type="submit"] { border-color:var(--navy-900); background:var(--navy-900); color:#fff; }
+@media (max-width: 600px) { .bus-stop-manager__header { flex-direction:column; } }

@@ -1,12 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./StudentTable.css";
 
-const DEFAULT_STUDENTS = [
-  { id: 1, name: "Adebayo Tunde", email: "adebayotunde@gmail.com", trips: 10, status: "Active" },
-  { id: 2, name: "Faith Emeka", email: "emekafaith@gmail.com", trips: 18, status: "Suspended" },
-  { id: 3, name: "Jeremiah Banks", email: "jeremiahbanks@gmail.com", trips: 10, status: "Active" },
-  { id: 4, name: "Tayo Jane", email: "tayojane02@gmail.com", trips: 0, status: "Unverified" },
-];
+
 
 function tripsLabel(trips) {
   return trips <= 1 ? `${trips} trip` : `${trips} trips`;
@@ -19,7 +14,7 @@ function StatusBadge({ status }) {
 }
 
 export default function StudentTable({
-  students = DEFAULT_STUDENTS,
+  students = [],
   page = 1,
   pageCount = 1,
   onNextPage,
@@ -38,7 +33,13 @@ export default function StudentTable({
           </tr>
         </thead>
         <tbody>
-          {students.map((student, i) => (
+          {students.length === 0 ? (
+            <tr>
+              <td colSpan={4} style={{ padding: "28px 12px", textAlign: "center" }}>
+                No students found.
+              </td>
+            </tr>
+          ) : students.map((student, i) => (
             <tr key={`${student.id}-${i}`}>
               <td className="student-table__name">{student.name}</td>
               <td>{student.email}</td>

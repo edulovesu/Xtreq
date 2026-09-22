@@ -1,16 +1,7 @@
 import { ArrowRight, Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import "./RouteTable.css";
 
-const DEFAULT_ROUTES = [
-  { id: 1, from: "Gate", to: "SUB", fare: 100, status: "Active" },
-  { id: 2, from: "Gate", to: "Road 7", fare: 200, status: "Active" },
-  { id: 3, from: "Gate", to: "Market", fare: 200, status: "Active" },
-  { id: 4, from: "Gate", to: "Halls", fare: 200, status: "Inactive" },
-  { id: 5, from: "SUB", to: "Gate", fare: 100, status: "Active" },
-  { id: 6, from: "Road 7", to: "Gate", fare: 200, status: "Active" },
-  { id: 7, from: "Market", to: "Gate", fare: 200, status: "Active" },
-  { id: 8, from: "Halls", to: "Gate", fare: 200, status: "Active" },
-];
+
 
 function StatusBadge({ status }) {
   const className =
@@ -24,7 +15,7 @@ function StatusBadge({ status }) {
   );
 }
 
-export default function RouteTable({ routes = DEFAULT_ROUTES, onEdit, onDelete }) {
+export default function RouteTable({ routes = [], onEdit, onDelete }) {
   return (
     <div className="route-table-card">
       <table className="route-table">
@@ -37,7 +28,13 @@ export default function RouteTable({ routes = DEFAULT_ROUTES, onEdit, onDelete }
           </tr>
         </thead>
         <tbody>
-          {routes.map((route) => (
+          {routes.length === 0 ? (
+            <tr>
+              <td colSpan={4} style={{ padding: "28px 12px", textAlign: "center" }}>
+                No routes found.
+              </td>
+            </tr>
+          ) : routes.map((route) => (
             <tr key={route.id}>
               <td className="route-table__route">
                 {route.from} <ArrowRight size={15} className="route-table__arrow" /> {route.to}

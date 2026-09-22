@@ -98,6 +98,9 @@ export default function BusManagement() {
       <Topbar title="Bus Management" />
 
       <div className="bus-management-page__content">
+        <p style={{ color: "var(--blue-text-muted)", fontSize: 13, margin: "0 0 12px" }}>
+          The current API does not expose per-bus trips-today or revenue-today totals, so those columns are shown as unavailable rather than estimated.
+        </p>
         <BusToolbar
           search={search}
           onSearchChange={setSearch}

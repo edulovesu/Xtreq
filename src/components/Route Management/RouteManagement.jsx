@@ -3,6 +3,7 @@ import Topbar from "../Topbar";
 import RouteToolbar from "./RouteToolbar";
 import RouteTable from "./RouteTable";
 import RouteModal from "./RouteModal";
+import BusStopManager from "./BusStopManager";
 import { useRoutes, useRouteActions, useBusStops } from "../../hooks/useRoutes";
 import "./RouteManagement.css";
 
@@ -19,7 +20,7 @@ export default function RouteManagement() {
     status: status === "All status" ? undefined : status,
   });
   const { create, remove, update } = useRouteActions();
-  const { stops } = useBusStops();
+  const { stops, refetch: refetchStops } = useBusStops();
 
   // RouteResponse only carries start_stop_id/end_stop_id, not stop names —
   // join against the bus-stops list to show "Gate → SUB" style labels.
@@ -103,6 +104,8 @@ export default function RouteManagement() {
         ) : (
           <RouteTable routes={rows} onEdit={handleToggleStatus} onDelete={handleDelete} />
         )}
+
+        <BusStopManager stops={stops} onChanged={refetchStops} />
       </div>
 
       <RouteModal

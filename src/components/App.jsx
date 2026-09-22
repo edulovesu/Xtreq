@@ -27,8 +27,8 @@
 // Navigate, useLocation 
 // useAuth
 
-import { Routes, Route, } from "react-router-dom";
-import { AuthProvider,  } from "../context/AuthContext";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { AuthProvider, useAuth  } from "../context/AuthContext";
 import Sidebar from "./Sidebar";
 import Login from "./Login/Login";
 import Revenue from "./Revenue Overview.jsx/Revenue";
@@ -43,13 +43,13 @@ import Profile from "./Profile/Profile";
 // flashing the login screen; once that settles, no user -> bounce to
 // /login and remember where we were trying to go.
 function ProtectedLayout() {
-  // const { isAuthenticated, loading } = useAuth();
-  // const location = useLocation();
+  const { isAuthenticated, loading } = useAuth();
+  const location = useLocation();
 
-  // if (loading) return null;
-  // if (!isAuthenticated) {
-  //   return <Navigate to="/login" state={{ from: location }} replace />;
-  // }
+  if (loading) return null;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
 
   return (
     <div className="app-shell">

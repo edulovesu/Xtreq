@@ -11,7 +11,23 @@ export function useBusStops() {
   return { stops: data ?? [], loading, error, refetch };
 }
 
-// GET /api/v1/routes/routes?q&is_active -> RouteResponse[] (not paginated, not admin-gated)
+export function useBusStopActions() {
+  const create = useCallback(
+    (body) => api.post("/api/v1/routes/bus-stops", body),
+    []
+  );
+  const update = useCallback(
+    (stopId, body) => api.patch(`/api/v1/routes/bus-stops/${stopId}`, body),
+    []
+  );
+  const remove = useCallback(
+    (stopId) => api.del(`/api/v1/routes/bus-stops/${stopId}`),
+    []
+  );
+  return { create, update, remove };
+}
+
+// GET /api/v1/routes/routes?q&is_active -> RouteResponse[] (not paginated)
 export function useRoutes({ search, status } = {}) {
   const isActive = status === "Active" ? true : status === "Inactive" ? false : undefined;
   const { data, loading, error, refetch } = useAsync(
@@ -22,19 +38,12 @@ export function useRoutes({ search, status } = {}) {
 }
 
 export function useRouteActions() {
-  const create = useCallback(
-    // { name, start_stop_id, end_stop_id, fare_naira?, is_predefined_two_ticket_route?, is_active? }
-    // distance_m is computed server-side — don't send it.
-    (body) => api.post("/api/v1/routes/routes", body),
-    []
-  );
+  const create = useCallback((body) => api.post("/api/v1/routes/routes", body), []);
   const update = useCallback(
     (routeId, body) => api.patch(`/api/v1/routes/routes/${routeId}`, body),
     []
   );
   const remove = useCallback(
-    // No FK guard here (unlike vehicles) — deleting a route referenced by
-    // trip history won't 409, so confirm with the admin before calling this.
     (routeId) => api.del(`/api/v1/routes/routes/${routeId}`),
     []
   );

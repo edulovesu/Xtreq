@@ -33,8 +33,8 @@ export default function BusTable({ buses = [], onEdit, onDelete }) {
               <tr key={bus.id}>
                 <td className="bus-table__id">{bus.plate}</td>
                 <td>{bus.driver}</td>
-                <td>{bus.trips ?? "—"}</td>
-                <td>{bus.revenue != null ? `₦${bus.revenue.toLocaleString()}` : "—"}</td>
+                <td>{bus.trips ?? "Not available"}</td>
+                <td>{bus.revenue != null ? `₦${bus.revenue.toLocaleString()}` : "Not available"}</td>
                 <td>
                   <StatusBadge status={bus.status} />
                 </td>

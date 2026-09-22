@@ -1,11 +1,7 @@
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import "./RemittanceHistory.css";
 
-const DEFAULT_HISTORY = [
-  { date: "May 07", totalRides: 306, gross: 30600, oauShare: 24480, xtreqMargin: 6120, status: "Pending" },
-  { date: "May 05", totalRides: 420, gross: 42000, oauShare: 33600, xtreqMargin: 8400, status: "Settled" },
-  { date: "April 30", totalRides: 1020, gross: 102000, oauShare: 81600, xtreqMargin: 20400, status: "Settled" },
-];
+
 
 function StatusBadge({ status }) {
   const className =
@@ -17,7 +13,7 @@ function StatusBadge({ status }) {
 }
 
 export default function RemittanceHistory({
-  history = DEFAULT_HISTORY,
+  history = [],
   loading = false,
   page = 1,
   pageCount = 1,
@@ -31,9 +27,9 @@ export default function RemittanceHistory({
           <h2 className="remittance-history__title">Remittance history</h2>
           <p className="remittance-history__subtitle">All past settlements</p>
         </div>
-        <a className="remittance-history__view-all" href="#">
-          View all <ArrowRight size={14} />
-        </a>
+        <span className="remittance-history__view-all" aria-hidden="true">
+          History <ArrowRight size={14} />
+        </span>
       </div>
 
       {loading ? (
@@ -52,7 +48,13 @@ export default function RemittanceHistory({
               </tr>
             </thead>
             <tbody>
-              {history.map((row, i) => (
+              {history.length === 0 ? (
+                <tr>
+                  <td colSpan={6} style={{ padding: "28px 12px", textAlign: "center" }}>
+                    No remittance history found.
+                  </td>
+                </tr>
+              ) : history.map((row, i) => (
                 <tr key={`${row.date}-${i}`}>
                   <td className="remittance-history__date">{row.date}</td>
                   <td>{row.totalRides}</td>

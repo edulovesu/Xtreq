@@ -5,28 +5,36 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  // "loading" = we're still checking a stored token before deciding
-  // whether to show the login screen or the app.
   const [loading, setLoading] = useState(true);
 
-  // On first mount: if a token is already in localStorage (from a previous
-  // session), validate it against GET /admins/me instead of trusting it
-  // blindly — it may have expired since the last visit.
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      setToken(null);
+      setUser(null);
+    };
+
+    window.addEventListener("xtreq:unauthorized", handleUnauthorized);
+    return () => window.removeEventListener("xtreq:unauthorized", handleUnauthorized);
+  }, []);
+
   useEffect(() => {
     const token = getToken();
     if (!token) {
       setLoading(false);
       return;
     }
+
     api
       .get("/api/v1/admins/me")
       .then(setUser)
-      .catch(() => setToken(null))
+      .catch(() => {
+        setToken(null);
+        setUser(null);
+      })
       .finally(() => setLoading(false));
   }, []);
 
   const login = useCallback(async (email, password) => {
-    // POST /api/v1/auth/login returns { user, access_token }.
     const { user: loggedInUser, access_token } = await api.post(
       "/api/v1/auth/login",
       { email, password },
@@ -42,8 +50,6 @@ export function AuthProvider({ children }) {
     setUser(null);
   }, []);
 
-  // Lets Profile screens update the cached user after PATCH /admins/me etc.
-  // without forcing a full re-fetch.
   const updateUser = useCallback((patch) => {
     setUser((prev) => (prev ? { ...prev, ...patch } : prev));
   }, []);

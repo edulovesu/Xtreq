@@ -90,6 +90,9 @@ export async function request(
   // render drops the user back to /login instead of looping on stale auth.
   if (res.status === 401) {
     setToken(null);
+    if (auth) {
+      window.dispatchEvent(new Event("xtreq:unauthorized"));
+    }
   }
 
   if (res.status === 204) return null;
@@ -128,6 +131,10 @@ export async function downloadCsv(path, params, filename) {
   const res = await fetch(url, {
     headers: token ? { Authorization: `Bearer ${token}` } : {},
   });
+  if (res.status === 401) {
+    setToken(null);
+    window.dispatchEvent(new Event("xtreq:unauthorized"));
+  }
   if (!res.ok) {
     throw new ApiError(`Export failed (${res.status})`, { status: res.status });
   }
