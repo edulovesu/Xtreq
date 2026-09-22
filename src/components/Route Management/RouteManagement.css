@@ -1,0 +1,14 @@
+.route-management-page {
+  flex: 1;
+  min-width: 0;
+}
+
+.route-management-page__content {
+  padding: 28px 36px 48px;
+}
+
+@media (max-width: 640px) {
+  .route-management-page__content {
+    padding: 20px 16px 96px;
+  }
+}

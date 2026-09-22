@@ -1,0 +1,137 @@
+.bus-table-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 8px 28px 24px;
+}
+
+.bus-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bus-table thead th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--blue-text-muted);
+  padding: 16px;
+}
+
+.bus-table td {
+  padding: 16px;
+  font-size: 0.9rem;
+  color: var(--blue-text);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.bus-table__id {
+  font-weight: 700;
+}
+
+.bus-table__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.bus-table__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.bus-table__status--active {
+  background: var(--green-bg);
+  color: var(--green-text);
+}
+
+.bus-table__status--inactive {
+  background: #edeef4;
+  color: var(--blue-text-muted);
+}
+
+.bus-table__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.bus-table__actions button {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  color: var(--blue-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bus-table__actions button:hover {
+  background: var(--bg-page);
+  color: var(--blue-text);
+}
+
+.bus-table__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 16px 4px;
+  font-size: 0.85rem;
+  color: var(--blue-text-muted);
+}
+
+.bus-table__pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bus-table__pagination button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  color: var(--blue-text-muted);
+}
+
+.bus-table__page-num--active {
+  background: var(--navy-900) !important;
+  color: #ffffff !important;
+  border-color: var(--navy-900) !important;
+  font-weight: 700;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .bus-table-card {
+    padding: 8px 16px 20px;
+  }
+
+  .bus-table__wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bus-table {
+    min-width: 680px;
+  }
+
+  .bus-table th,
+  .bus-table td {
+    white-space: nowrap;
+  }
+
+  .bus-table__footer {
+    padding: 16px 4px 4px;
+  }
+}

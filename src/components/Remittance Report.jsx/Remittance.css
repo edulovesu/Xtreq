@@ -1,0 +1,29 @@
+.remittance-page {
+  flex: 1;
+  min-width: 0;
+}
+
+.remittance-page__content {
+  padding: 28px 36px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.remittance-page__summary-cards {
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .remittance-page__content {
+    padding: 20px 16px 96px;
+    gap: 16px;
+  }
+
+  .remittance-page__summary-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+}

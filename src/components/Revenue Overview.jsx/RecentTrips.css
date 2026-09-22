@@ -1,0 +1,122 @@
+.recent-trips {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+}
+
+.recent-trips__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.recent-trips__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--blue-text);
+}
+
+.recent-trips__subtitle {
+  font-size: 0.85rem;
+  color: var(--blue-text-muted);
+  margin: 0;
+}
+
+.recent-trips__view-all {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--blue-text-muted);
+  text-decoration: none;
+}
+
+.recent-trips__table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.recent-trips__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recent-trips__table thead th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--blue-text-muted);
+  background: var(--bg-page);
+  padding: 12px 16px;
+}
+
+.recent-trips__table thead th:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.recent-trips__table thead th:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.recent-trips__table td {
+  padding: 16px;
+  font-size: 0.9rem;
+  color: var(--blue-text);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.recent-trips__id {
+  font-weight: 700;
+}
+
+.recent-trips__col-right {
+  text-align: right;
+}
+
+.recent-trips__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  font-size: 0.85rem;
+  color: var(--blue-text-muted);
+}
+
+.recent-trips__pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.recent-trips__pagination button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  color: var(--blue-text-muted);
+}
+
+.recent-trips__page-num--active {
+  background: var(--navy-900) !important;
+  color: #ffffff !important;
+  border-color: var(--navy-900) !important;
+  font-weight: 700;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .recent-trips {
+    padding: 20px 16px;
+  }
+
+  .recent-trips__table {
+    min-width: 640px;
+  }
+}

@@ -1,0 +1,40 @@
+/* ---------- Design tokens ---------- */
+:root {
+  --navy-900: #0a1550;
+  --navy-800: #0f1c5e;
+  --navy-700: #16215e;
+  --blue-text: #1b2a6b;
+  --blue-text-muted: #5b6699;
+  --bg-page: #f4f6fb;
+  --bg-card: #ffffff;
+  --border-subtle: #e6e9f2;
+  --track-bar: #e3e7f3;
+  --accent-orange: #f2a93b;
+  --green-bg: #e0f8e9;
+  --green-text: #1fa855;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg-page);
+  color: var(--blue-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}

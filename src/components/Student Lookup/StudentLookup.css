@@ -1,0 +1,14 @@
+.student-lookup-page {
+  flex: 1;
+  min-width: 0;
+}
+
+.student-lookup-page__content {
+  padding: 28px 36px 48px;
+}
+
+@media (max-width: 640px) {
+  .student-lookup-page__content {
+    padding: 20px 16px 96px;
+  }
+}

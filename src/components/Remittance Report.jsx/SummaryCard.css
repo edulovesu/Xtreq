@@ -1,0 +1,46 @@
+.summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  flex: 1;
+}
+
+.summary-card__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--blue-text-muted);
+  margin-bottom: 14px;
+}
+
+.summary-card__value {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--blue-text);
+}
+
+.summary-card__sublabel {
+  font-size: 0.85rem;
+  color: var(--blue-text-muted);
+  margin-top: 4px;
+}
+
+@media (max-width: 640px) {
+  .summary-card {
+    padding: 16px 14px;
+  }
+
+  .summary-card__label {
+    font-size: 0.66rem;
+    margin-bottom: 10px;
+  }
+
+  .summary-card__value {
+    font-size: 1.3rem;
+  }
+
+  .summary-card__sublabel {
+    font-size: 0.75rem;
+  }
+}

@@ -1,0 +1,140 @@
+.route-table-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 8px 28px 24px;
+}
+
+.route-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.route-table thead th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--blue-text-muted);
+  padding: 16px;
+}
+
+.route-table td {
+  padding: 16px;
+  font-size: 0.9rem;
+  color: var(--blue-text);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.route-table__route {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.route-table__arrow {
+  color: var(--blue-text-muted);
+  flex-shrink: 0;
+}
+
+.route-table__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.route-table__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.route-table__status--active {
+  background: var(--green-bg);
+  color: var(--green-text);
+}
+
+.route-table__status--inactive {
+  background: #edeef4;
+  color: var(--blue-text-muted);
+}
+
+.route-table__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.route-table__actions button {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  color: var(--blue-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.route-table__actions button:hover {
+  background: var(--bg-page);
+  color: var(--blue-text);
+}
+
+.route-table__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 16px 4px;
+  font-size: 0.85rem;
+  color: var(--blue-text-muted);
+}
+
+.route-table__pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.route-table__pagination button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  color: var(--blue-text-muted);
+}
+
+.route-table__page-num--active {
+  background: var(--navy-900) !important;
+  color: #ffffff !important;
+  border-color: var(--navy-900) !important;
+  font-weight: 700;
+}
+
+/* ---------- Mobile: drop the Actions column, everything else fits ---------- */
+@media (max-width: 640px) {
+  .route-table-card {
+    padding: 8px 16px 20px;
+  }
+
+  .route-table thead th:last-child,
+  .route-table td:last-child {
+    display: none;
+  }
+
+  .route-table th,
+  .route-table td {
+    padding: 14px 10px;
+  }
+
+  .route-table__footer {
+    padding: 16px 4px 4px;
+  }
+}

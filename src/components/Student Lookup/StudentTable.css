@@ -1,0 +1,113 @@
+.student-table-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 8px 28px 24px;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.student-table thead th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--blue-text-muted);
+  padding: 16px;
+}
+
+.student-table td {
+  padding: 16px;
+  font-size: 0.9rem;
+  color: var(--blue-text);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.student-table__name {
+  font-weight: 700;
+}
+
+.student-table__status {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.student-table__status--active {
+  background: var(--green-bg);
+  color: var(--green-text);
+}
+
+.student-table__status--suspended {
+  background: #fdf1dc;
+  color: #b8791a;
+  border: 1px solid #f3d9a8;
+}
+
+.student-table__status--unverified {
+  background: #f4f5f9;
+  color: var(--blue-text-muted);
+  border: 1px solid var(--border-subtle);
+}
+
+.student-table__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 16px 4px;
+  font-size: 0.85rem;
+  color: var(--blue-text-muted);
+}
+
+.student-table__pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.student-table__pagination button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  color: var(--blue-text-muted);
+}
+
+.student-table__page-num--active {
+  background: var(--navy-900) !important;
+  color: #ffffff !important;
+  border-color: var(--navy-900) !important;
+  font-weight: 700;
+}
+
+/* ---------- Mobile: horizontal scroll instead of squeezed columns ---------- */
+@media (max-width: 640px) {
+  .student-table-card {
+    padding: 8px 16px 20px;
+  }
+
+  .student-table__wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .student-table {
+    min-width: 640px;
+  }
+
+  .student-table th,
+  .student-table td {
+    white-space: nowrap;
+  }
+
+  .student-table__footer {
+    padding: 16px 4px 4px;
+  }
+}

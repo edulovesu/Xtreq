@@ -1,0 +1,28 @@
+.revenue-page {
+  flex: 1;
+  min-width: 0;
+}
+
+.revenue-page__content {
+  padding: 28px 36px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.revenue-page__stats {
+  display: flex;
+  gap: 20px;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .revenue-page__content {
+    padding: 20px 16px 96px;
+    gap: 18px;
+  }
+
+  .revenue-page__stats {
+    gap: 10px;
+  }
+}

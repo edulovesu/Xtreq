@@ -1,0 +1,81 @@
+.initiate-remittance {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  max-width: 780px;
+}
+
+.initiate-remittance__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--blue-text);
+  margin: 0 0 22px;
+}
+
+.initiate-remittance__field-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--blue-text-muted);
+  margin-bottom: 10px;
+}
+
+.initiate-remittance__period-select {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: var(--blue-text);
+  margin-bottom: 20px;
+}
+
+.initiate-remittance__summary {
+  background: var(--bg-page);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+
+.initiate-remittance__summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--blue-text);
+  padding: 6px 0;
+}
+
+.initiate-remittance__summary-row--total {
+  font-weight: 700;
+}
+
+.initiate-remittance__submit {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--navy-900);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.initiate-remittance__submit:hover {
+  background: var(--navy-800);
+}
+
+@media (max-width: 640px) {
+  .initiate-remittance {
+    padding: 18px;
+  }
+}
