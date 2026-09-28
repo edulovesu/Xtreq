@@ -18,6 +18,7 @@ function StatusBadge({ status }) {
 export default function RouteTable({ routes = [], onEdit, onDelete }) {
   return (
     <div className="route-table-card">
+      <div className="route-table__wrap">
       <table className="route-table">
         <thead>
           <tr>
@@ -57,6 +58,7 @@ export default function RouteTable({ routes = [], onEdit, onDelete }) {
           ))}
         </tbody>
       </table>
+      </div>
 
       <div className="route-table__footer">
         <span>

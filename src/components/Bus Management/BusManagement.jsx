@@ -3,6 +3,7 @@ import Topbar from "../Topbar";
 import BusToolbar from "./BusToolbar";
 import BusTable from "./BusTable";
 import RegisterBusModal from "./RegisterBusModal";
+import BusEditModal from "./BusEditModal";
 import { useVehicles, useVehicleActions } from "../../hooks/useVehicles";
 import { useDrivers } from "../../hooks/useDrivers";
 import "./BusManagement.css";
@@ -11,6 +12,8 @@ export default function BusManagement() {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("All status");
   const [modalOpen, setModalOpen] = useState(false);
+  const [editingBus, setEditingBus] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
   const [actionError, setActionError] = useState(null);
 
   // The API does the search/status matching server-side (GET /vehicles/vehicles?q&is_active),
@@ -37,6 +40,7 @@ export default function BusManagement() {
     plate: v.plate_number,
     label: v.vehicle_label_number,
     driver: driverNameByVehicleId[v.id] ?? "Unassigned",
+    driverId: v.driver_assigned_id ?? "",
     // Not exposed by this endpoint — see useVehicles.js for the gap this
     // flags (no per-bus trips/revenue-today field on the API yet).
     trips: null,
@@ -46,6 +50,7 @@ export default function BusManagement() {
 
   const handleRegister = async ({ plateNumber, labelNumber, driverId, status: initialStatus }) => {
     setActionError(null);
+    setSubmitting(true);
     try {
       const created = await create({
         plate_number: plateNumber,
@@ -61,21 +66,23 @@ export default function BusManagement() {
       refetch();
     } catch (err) {
       setActionError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  // Simplified stand-in for a full edit flow: the pencil icon toggles
-  // active/inactive, which is the one field this page can safely patch
-  // without a proper edit modal (driver reassignment has its own gotcha —
-  // see PATCH /vehicles/{id}'s docstring: you can reassign a driver, but
-  // not unset one, via this endpoint).
-  const handleToggleStatus = async (bus) => {
+  const handleEdit = async (body) => {
+    if (!editingBus) return;
     setActionError(null);
+    setSubmitting(true);
     try {
-      await update(bus.id, { is_active: bus.status !== "Active" });
+      await update(editingBus.id, body);
+      setEditingBus(null);
       refetch();
     } catch (err) {
       setActionError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -118,9 +125,18 @@ export default function BusManagement() {
         {loading ? (
           <p style={{ padding: "24px 0" }}>Loading buses…</p>
         ) : (
-          <BusTable buses={rows} onEdit={handleToggleStatus} onDelete={handleDelete} />
+          <BusTable buses={rows} onEdit={(bus) => setEditingBus(bus)} onDelete={handleDelete} />
         )}
       </div>
+
+      <BusEditModal
+        open={Boolean(editingBus)}
+        bus={editingBus}
+        drivers={drivers}
+        onClose={() => setEditingBus(null)}
+        onSave={handleEdit}
+        submitting={submitting}
+      />
 
       <RegisterBusModal
         open={modalOpen}

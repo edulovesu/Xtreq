@@ -3,6 +3,7 @@ import Topbar from "../Topbar";
 import RouteToolbar from "./RouteToolbar";
 import RouteTable from "./RouteTable";
 import RouteModal from "./RouteModal";
+import RouteEditModal from "./RouteEditModal";
 import BusStopManager from "./BusStopManager";
 import { useRoutes, useRouteActions, useBusStops } from "../../hooks/useRoutes";
 import "./RouteManagement.css";
@@ -11,6 +12,7 @@ export default function RouteManagement() {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("All status");
   const [modalOpen, setModalOpen] = useState(false);
+  const [editingRoute, setEditingRoute] = useState(null);
   const [actionError, setActionError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -38,6 +40,9 @@ export default function RouteManagement() {
     to: stopNameById[r.end_stop_id] ?? "Unknown stop",
     fare: r.fare_naira,
     status: r.is_active ? "Active" : "Inactive",
+    start_stop_id: r.start_stop_id,
+    end_stop_id: r.end_stop_id,
+    is_active: r.is_active,
   }));
 
   const handleRegister = async (body) => {
@@ -70,13 +75,18 @@ export default function RouteManagement() {
     }
   };
 
-  const handleToggleStatus = async (route) => {
+  const handleEdit = async (body) => {
+    if (!editingRoute) return;
     setActionError(null);
+    setSubmitting(true);
     try {
-      await update(route.id, { is_active: route.status !== "Active" });
+      await update(editingRoute.id, body);
+      setEditingRoute(null);
       refetch();
     } catch (err) {
       setActionError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -102,11 +112,20 @@ export default function RouteManagement() {
         {loading ? (
           <p style={{ padding: "24px 0" }}>Loading routes…</p>
         ) : (
-          <RouteTable routes={rows} onEdit={handleToggleStatus} onDelete={handleDelete} />
+          <RouteTable routes={rows} onEdit={(route) => setEditingRoute(route)} onDelete={handleDelete} />
         )}
 
         <BusStopManager stops={stops} onChanged={refetchStops} />
       </div>
+
+      <RouteEditModal
+        open={Boolean(editingRoute)}
+        route={editingRoute ? routes.find((r) => r.id === editingRoute.id) : null}
+        stops={stops}
+        onClose={() => setEditingRoute(null)}
+        onSave={handleEdit}
+        submitting={submitting}
+      />
 
       <RouteModal
         open={modalOpen}

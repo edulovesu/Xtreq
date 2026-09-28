@@ -118,23 +118,13 @@
   font-weight: 700;
 }
 
-/* ---------- Mobile: drop the Actions column, everything else fits ---------- */
-@media (max-width: 640px) {
-  .route-table-card {
-    padding: 8px 16px 20px;
-  }
+/* Keep all columns available on phones/tablets and let the user scroll horizontally. */
+.route-table__wrap { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.route-table { min-width:680px; }
+.route-table th, .route-table td { white-space:nowrap; }
 
-  .route-table thead th:last-child,
-  .route-table td:last-child {
-    display: none;
-  }
-
-  .route-table th,
-  .route-table td {
-    padding: 14px 10px;
-  }
-
-  .route-table__footer {
-    padding: 16px 4px 4px;
-  }
+@media (max-width: 900px) {
+  .route-table-card { padding:8px 16px 20px; }
+  .route-table th, .route-table td { padding:14px 10px; }
+  .route-table__footer { padding:16px 4px 4px; }
 }

@@ -130,3 +130,5 @@
 .register-bus-modal__submit:hover {
   background: var(--navy-800);
 }
+.register-bus-modal__hint { color:var(--blue-text-muted); font-size:.76rem; line-height:1.45; }
+.register-bus-modal__field input:disabled { background:#f6f7fb; color:var(--blue-text-muted); cursor:not-allowed; }
